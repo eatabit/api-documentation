@@ -1,0 +1,382 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "2.0.0",
+        "title": "eatabit.io API",
+        "description": "**Test Credentials**\n* sid: `617117b5-4042-4951-b75c-88f2ee159afd`\n* token: `c7ae2067-95bd-4722-909a-9307ce019097`\n",
+        "contact": {
+            "url": "http://eatabit.io",
+            "email": "support@eatabit.io"
+        }
+    },
+    "host": "api.eatabit.io",
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/v2",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "basicAuth": {
+            "type": "basic",
+            "description": "All requests are authenticated with HTTP Basic auth. The username is your account :sid and the password is your account :token. You can supply a DEVELOPMENT or PRODUCTION account :sid & :token pair. Jobs created with a DEVELOPMENT account will not actually be sent to a printer."
+        }
+    },
+    "paths": {
+        "/auth": {
+            "get": {
+                "summary": "Verify authentication",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send `Authenticated` if authentication is succesful"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/account/{sid}": {
+            "get": {
+                "summary": "Get Account info",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send Account information",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sid",
+                        "in": "path",
+                        "description": "Your Account SID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ]
+            }
+        },
+        "/account/{sid}/printers/{printer_id}": {
+            "get": {
+                "summary": "Get Printer info",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send Printer information",
+                        "schema": {
+                            "$ref": "#/definitions/Printer"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sid",
+                        "in": "path",
+                        "description": "Your Account SID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "printer_id",
+                        "in": "path",
+                        "description": "The ID of the Printer",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ]
+            }
+        },
+        "/account/{sid}/printers/{printer_id}/jobs/{job_id}": {
+            "get": {
+                "summary": "Get Job info",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Will send Job information",
+                        "schema": {
+                            "$ref": "#/definitions/Job"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sid",
+                        "in": "path",
+                        "description": "Your Account SID",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "printer_id",
+                        "in": "path",
+                        "description": "The ID pf the Printer",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "description": "The ID of the Job",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    }
+                ]
+            }
+        },
+        "/account/{sid}/printers/{printer_id}/jobs": {
+            "post": {
+                "summary": "Create Job",
+                "security": [
+                    {
+                        "basicAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Will send Job information",
+                        "schema": {
+                            "$ref": "#/definitions/Job"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sid",
+                        "description": "Your Account SID",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "printer_id",
+                        "description": "The ID of the Printer",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "format": "string"
+                    },
+                    {
+                        "name": "job",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NewJob"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Account": {
+            "required": [
+                "name",
+                "support_phone_number",
+                "created_at"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Your account's name. This string will appear on printed receipts\n"
+                },
+                "support_phone_number": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Your account's support phone number in E.164 format\n"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time that the record was created. Timestamps are in iso_8601 format\n"
+                }
+            }
+        },
+        "NewJob": {
+            "required": [
+                "body",
+                "status_url",
+                "status_url_method"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The body of the job to be printed"
+                },
+                "status_url": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The url to which to send Job state callbacks"
+                },
+                "status_url_method": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The HTTP method to use to action the status_url",
+                    "enum": [
+                        "PUT",
+                        "POST"
+                    ]
+                }
+            }
+        },
+        "Printer": {
+            "required": [
+                "name",
+                "enabled",
+                "state",
+                "online",
+                "has_paper",
+                "pickup_minutes",
+                "delivery_minutes"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The name of the Restaurant that the printer is located in\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "The administrative state of the restauant. Restaurants that are disabled cannot receive orders\n"
+                },
+                "state": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "Printer :state is a summary value composed of :online and :has_paper. If the printer state id \"unavailable\", the API will still accept orders for the printer in the case it comes back online and/or its paper is refilled\n",
+                    "enum": [
+                        "available",
+                        "unavailable"
+                    ]
+                },
+                "online": {
+                    "type": "boolean",
+                    "description": "The cellular connectivity state of the printer. A value of false means that the printer is not registered to the cellular network and cannot receive jobs. If a printer is powered off, this value will be false\n"
+                },
+                "has_paper": {
+                    "type": "boolean",
+                    "description": "The current state of the paper in the printer. A value of false means the printer is out of paper. Upon refill of the paper, the printer will update this value to true\n"
+                },
+                "pickup_minutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The current fulfillment time for pickup orders, in minutes\n"
+                },
+                "delivery_minutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The current fulfillment time for delivery orders, in minutes\n"
+                }
+            }
+        },
+        "Job": {
+            "required": [
+                "id",
+                "state",
+                "body",
+                "status_url",
+                "status_url_method",
+                "environment",
+                "pickup_minutes",
+                "delivery_minutes",
+                "created_at"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The ID of the job in the eatabit database"
+                },
+                "state": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The state of the Job",
+                    "enum": [
+                        "queued",
+                        "downloaded",
+                        "printed",
+                        "expired"
+                    ]
+                },
+                "body": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The body of the job to be printed"
+                },
+                "status_url": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The url to which to send Job state callbacks"
+                },
+                "status_url_method": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The HTTP method to use to action the status_url",
+                    "enum": [
+                        "PUT",
+                        "POST"
+                    ]
+                },
+                "environment": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The job environment as defined by the account used to create it. Jobs created using your development account will be of environment `development`. Development jobs are for testing purposes and will not be sent to the printer.\n",
+                    "enum": [
+                        "development",
+                        "production"
+                    ]
+                },
+                "pickup_minutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "maximum": 90,
+                    "description": "The number of minutes to fulfill a Pickup order, as specified by the restaurant, at the time the Job was created. This value can be subtracted from the created_at param to determine the Job fulfillment time.\n"
+                },
+                "delivery_minutes": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 0,
+                    "maximum": 90,
+                    "description": "The number of minutes to fulfill a Delivery order, as specified by the restaurant, at the time the Job was created. This value can be subtracted from the created_at param to determine the Job fulfillment time.\n"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time that the record was created. Timestamps are in iso8601 format\n"
+                }
+            }
+        }
+    }
+}

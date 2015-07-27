@@ -308,24 +308,32 @@
                 "body": {
                     "type": "string",
                     "format": "string",
-                    "description": "The body of the Job to be printed",
+                    "description": "The body of the Job to be printed\n",
                     "maxLength": 30000,
                     "minLength": 1
                 },
                 "status_url": {
                     "type": "string",
                     "format": "string",
-                    "description": "The url to which to send Job state change callbacks"
+                    "description": "The url to which to send Job state change callbacks\n"
                 },
                 "status_url_method": {
                     "type": "string",
                     "format": "string",
-                    "description": "The HTTP method to use to action the status_url",
+                    "description": "The HTTP method to use to action the status_url\n",
                     "enum": [
                         "PUT",
                         "POST"
                     ],
                     "default": "PUT"
+                },
+                "expire_seconds": {
+                    "type": "integer",
+                    "format": "int32",
+                    "minimum": 60,
+                    "maximum": 1800,
+                    "description": "The number of seconds to wait for the Location to print the Job before changing the Job state to 'expired'. The default is 180 seconds.\n",
+                    "default": 180
                 }
             }
         },
@@ -344,12 +352,12 @@
                 "id": {
                     "type": "integer",
                     "format": "int32",
-                    "description": "The ID of the Job in the eatabit database"
+                    "description": "The ID of the Job in the eatabit database\n"
                 },
                 "state": {
                     "type": "string",
                     "format": "string",
-                    "description": "The state of the Job",
+                    "description": "The state of the Job\n",
                     "enum": [
                         "queued",
                         "downloaded",
@@ -360,17 +368,17 @@
                 "body": {
                     "type": "string",
                     "format": "string",
-                    "description": "The body of the Job to be printed"
+                    "description": "The body of the Job to be printed\n"
                 },
                 "status_url": {
                     "type": "string",
                     "format": "string",
-                    "description": "The url to which to send Job state callbacks"
+                    "description": "The url to which to send Job state callbacks\n"
                 },
                 "status_url_method": {
                     "type": "string",
                     "format": "string",
-                    "description": "The HTTP method to use to action the status_url",
+                    "description": "The HTTP method to use to action the status_url\n",
                     "enum": [
                         "PUT",
                         "POST"

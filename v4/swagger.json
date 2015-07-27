@@ -331,7 +331,7 @@
                     "type": "integer",
                     "format": "int32",
                     "minimum": 60,
-                    "maximum": 1800,
+                    "maximum": 300,
                     "description": "The number of seconds to wait for the Location to print the Job before changing the Job state to 'expired'. The default is 180 seconds.\n",
                     "default": 180
                 }

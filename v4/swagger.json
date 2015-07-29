@@ -331,6 +331,9 @@
                     "type": "integer",
                     "format": "int32",
                     "minimum": 60,
+                    "maximum": 1800,
+                    "description": "The number of seconds to wait for the Location to print the Job before changing the Job state to 'expired'. The default is 300 seconds.\n",
+                    "default": 300
                 }
             }
         },
@@ -395,12 +398,17 @@
                     "format": "int32",
                     "minimum": 0,
                     "maximum": 90,
-                    "description": "The number of minutes to fulfill an order, as specified by the Location, at the time the Job was created. This value can be subtracted from the created_at param to determine the Job fulfillment time.\n"
+                    "description": "The number of minutes to fulfill an order, as specified by the Location at the time the Job was created.\n"
+                },
+                "fulfill_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time at which the Location has specified the Job to be ready. The value is in iso8601 format.\n"
                 },
                 "created_at": {
                     "type": "string",
                     "format": "date-time",
-                    "description": "The UTC time that the record was created. Timestamps are in iso8601 format\n"
+                    "description": "The UTC time that the record was created. Timestamps are in iso8601 format.\n"
                 }
             }
         },

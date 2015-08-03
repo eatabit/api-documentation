@@ -346,6 +346,7 @@
                 "status_url_method",
                 "environment",
                 "fulfillment",
+                "fulfill_at",
                 "created_at"
             ],
             "properties": {

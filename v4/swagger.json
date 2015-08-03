@@ -301,10 +301,17 @@
         },
         "NewJob": {
             "required": [
+                "id",
                 "body",
                 "status_url"
             ],
             "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The ID of the Job in your system. This ID will be printed on the paper.\n",
+                    "maxLength": 254
+                },
                 "body": {
                     "type": "string",
                     "format": "string",
@@ -354,6 +361,11 @@
                     "type": "integer",
                     "format": "int32",
                     "description": "The ID of the Job in the eatabit database\n"
+                },
+                "external_id": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The ID you supplied as :id at Job creation\n"
                 },
                 "state": {
                     "type": "string",

@@ -205,6 +205,18 @@
         }
     },
     "definitions": {
+        "ShallowAccount": {
+            "required": [
+                "sid"
+            ],
+            "properties": {
+                "sid": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The SID of the Account used to create this Job.\n"
+                }
+            }
+        },
         "Account": {
             "required": [
                 "name",
@@ -235,6 +247,20 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The UTC time that the record was created. Timestamps are in iso_8601 format\n"
+                }
+            }
+        },
+        "ShallowPrinter": {
+            "required": [
+                "fulfillment"
+            ],
+            "properties": {
+                "fulfillment": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maximum": 95,
+                    "minimum": 5,
+                    "description": "The number of minutes to fulfill, as specified by the Location at the time the Job was created.\n"
                 }
             }
         },
@@ -339,24 +365,37 @@
                     "format": "int32",
                     "minimum": 60,
                     "maximum": 1800,
-                    "description": "The number of seconds to wait for the Location to print the Job before changing the Job state to 'expired'. The default is 300 seconds.\n",
-                    "default": 300
+                    "default": 300,
+                    "description": "The optional number of seconds to wait for the Location to print the Job after which the Job state will change to 'expired'. The default is 300 seconds.\n"
                 }
             }
         },
         "Job": {
             "required": [
+                "account",
+                "printer",
                 "id",
                 "state",
                 "body",
                 "status_url",
                 "status_url_method",
                 "environment",
-                "fulfillment",
                 "fulfill_at",
-                "created_at"
+                "created_at",
+                "external_id",
+                "api_version"
             ],
             "properties": {
+                "account": {
+                    "type": "object",
+                    "$ref": "#/definitions/ShallowAccount",
+                    "description": "The Account used to create the Job\n"
+                },
+                "printer": {
+                    "type": "object",
+                    "$ref": "#/definitions/ShallowPrinter",
+                    "description": "The Printer to which the Job was sent.\n"
+                },
                 "id": {
                     "type": "integer",
                     "format": "int32",
@@ -406,13 +445,6 @@
                         "production"
                     ]
                 },
-                "fulfillment": {
-                    "type": "integer",
-                    "format": "int32",
-                    "minimum": 0,
-                    "maximum": 90,
-                    "description": "The number of minutes to fulfill an order, as specified by the Location at the time the Job was created.\n"
-                },
                 "fulfill_at": {
                     "type": "string",
                     "format": "date-time",
@@ -422,6 +454,12 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "The UTC time that the record was created. Timestamps are in iso8601 format.\n"
+                },
+                "api_version": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 4,
+                    "description": "The version of the API used to create the Job. The default is 4.\n"
                 }
             }
         },

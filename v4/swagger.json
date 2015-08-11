@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "4.0.0alpha",
+        "version": "4.0.0beta",
         "title": "eatabit.io API",
         "description": "**Test Credentials**\n* sid: `617117b5-4042-4951-b75c-88f2ee159afd`\n* token: `c7ae2067-95bd-4722-909a-9307ce019097`\n",
         "contact": {
@@ -252,9 +252,15 @@
         },
         "ShallowPrinter": {
             "required": [
-                "fulfillment"
+                "fulfillment",
+                "id"
             ],
             "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The id of the Job Printer.\n"
+                },
                 "fulfillment": {
                     "type": "integer",
                     "format": "int32",
@@ -266,6 +272,7 @@
         },
         "Printer": {
             "required": [
+                "id",
                 "name",
                 "enabled",
                 "state",
@@ -277,19 +284,24 @@
                 "light"
             ],
             "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "string",
+                    "description": "The id of the Printer.\n"
+                },
                 "name": {
                     "type": "string",
                     "format": "string",
-                    "description": "The name of the Location where the Printer is located\n"
+                    "description": "The name of the Location where the Printer is located.\n"
                 },
                 "enabled": {
                     "type": "boolean",
-                    "description": "The administrative state of the Printer. Printers that are disabled cannot receive orders\n"
+                    "description": "The administrative state of the Printer. Printers that are disabled cannot receive orders.\n"
                 },
                 "state": {
                     "type": "string",
                     "format": "string",
-                    "description": "Printer :state is a summary value composed of :online and :has_paper. If the printer state is \"unavailable\", the API will still accept orders for the Printer in the case it comes back online and/or its paper is refilled\n",
+                    "description": "Printer :state is a summary value composed of :online and :has_paper. If the printer state is \"unavailable\", the API will still accept orders for the Printer in the case it comes back online and/or its paper is refilled.\n",
                     "enum": [
                         "available",
                         "unavailable"
@@ -297,11 +309,11 @@
                 },
                 "online": {
                     "type": "boolean",
-                    "description": "The cellular connectivity state of the Printer. A value of false means that the Printer is not registered to the cellular network and cannot receive jobs. If a Printer is powered off, this value will be false\n"
+                    "description": "The cellular connectivity state of the Printer. A value of false means that the Printer is not registered to the cellular network and cannot receive jobs. If a Printer is powered off, this value will be false.\n"
                 },
                 "paper": {
                     "type": "boolean",
-                    "description": "The current state of the paper in the Printer. A value of false means the Printer is out of paper. Upon refill of the paper, the Printer will update this value to true\n"
+                    "description": "The current state of the paper in the Printer. A value of false means the Printer is out of paper. Upon refill of the paper, the Printer will update this value to true.\n"
                 },
                 "fulfillment": {
                     "type": "integer",
@@ -383,7 +395,9 @@
                 "fulfill_at",
                 "created_at",
                 "external_id",
-                "api_version"
+                "api_version",
+                "expire_seconds",
+                "expires_at"
             ],
             "properties": {
                 "account": {
@@ -460,6 +474,17 @@
                     "format": "int32",
                     "default": 4,
                     "description": "The version of the API used to create the Job. The default is 4.\n"
+                },
+                "expire_seconds": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 300,
+                    "description": "The value supplied during Job creation.\n"
+                },
+                "expires_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time at which, given that the Job is not printed by the Location, the API will expire the Job. The value is in iso8601 format.\n"
                 }
             }
         },

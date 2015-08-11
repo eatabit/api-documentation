@@ -257,7 +257,7 @@
                 "enabled",
                 "state",
                 "online",
-                "has_paper",
+                "paper",
                 "pickup_minutes",
                 "delivery_minutes"
             ],
@@ -274,7 +274,7 @@
                 "state": {
                     "type": "string",
                     "format": "string",
-                    "description": "Printer :state is a summary value composed of :online and :has_paper. If the printer state id \"unavailable\", the API will still accept orders for the printer in the case it comes back online and/or its paper is refilled\n",
+                    "description": "Printer :state is a summary value composed of :online and :paper. If the printer state id \"unavailable\", the API will still accept orders for the printer in the case it comes back online and/or its paper is refilled\n",
                     "enum": [
                         "available",
                         "unavailable"
@@ -284,7 +284,7 @@
                     "type": "boolean",
                     "description": "The cellular connectivity state of the printer. A value of false means that the printer is not registered to the cellular network and cannot receive jobs. If a printer is powered off, this value will be false\n"
                 },
-                "has_paper": {
+                "paper": {
                     "type": "boolean",
                     "description": "The current state of the paper in the printer. A value of false means the printer is out of paper. Upon refill of the paper, the printer will update this value to true\n"
                 },

@@ -15,6 +15,7 @@
     <link href="css/index.css" rel="stylesheet"/>
     <link href='css/standalone.css' rel='stylesheet'/>
     <link href='css/api-explorer.css' rel='stylesheet' type='text/css'/>
+    <link href='css/bootstrap-custom.css' rel='stylesheet' type='text/css'/>
 
     <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
     <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
@@ -253,7 +254,51 @@
 <script type="text/javascript">
     $("div[data-resource='resource_default']").attr('label', '');
 </script>
-<script src='lib/ui_custom.js' type='text/javascript'></script>
+<div class="modal fade" id="status_callback_modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Job Status Callbacks</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+            <strong>Job Status Callbacks</strong> allow you to passively monitor the status of your Jobs.
+            When your Job changes state, for example, from "downloaded" to "printed", a Job Status Callback will fire
+            to the url that you specified in the <strong>:status_url</strong> value of the Job, using the HTTP method
+            specified in the <strong>:status_url_method</strong> value, with the following schema.
+        </p>
+<pre>
+{
+  "job": {
+    "id":                 "[the eatabit.io Job ID]",
+    "body":               "One large pizza",
+    "environment":        "production",
+    "expire_seconds":     300,
+    "external_id":        "[your Job ID]",
+    "expires_at":         "2015-09-10T01:54:34.204Z",
+    "fulfill_at":         "2015-09-10T01:54:34.204Z",
+    "state":              "printed",
+    "status_url":         "http://endpoint.myapi.com/orders/1024ALPHA.json",
+    "status_url_method":  "PUT",
+    "account":            { "sid": "617117b5-4042-4951-b75c-88f2ee159afd" },
+    "printer":            { "fulfillment": 15 }
+  }
+}
+</pre>
+        <p>
+            <em>
+                If the <strong>:fulfillment</strong> minutes are changed on the Printer before the Job is printed,
+                a Job Status Callback will be fired containing the new fulfillment minutes in the "printer" key.
+            </em>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 </body>
 </html>
 

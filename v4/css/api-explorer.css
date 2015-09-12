@@ -1190,7 +1190,7 @@
     border-top-style: solid;
     border-top-width: 1px;
     background-color: rgb(243, 243, 244);
-    padding-left: 40px;
+    padding: 9px 9px 9px 40px;
     color: rgb(92, 102, 111);
     -webkit-font-smoothing: antialiased;
     font-family: proxima-nova, sans-serif;

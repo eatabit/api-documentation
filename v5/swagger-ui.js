@@ -21160,7 +21160,7 @@ SwaggerUi.Views.HeaderView = Backbone.View.extend({
 
   showWordnikDev: function(){
     this.trigger('update-swagger-ui', {
-      url: 'http://api.wordnik.com/v4/resources.json'
+      url: 'http://api.wordnik.com/v5/resources.json'
     });
   },
 

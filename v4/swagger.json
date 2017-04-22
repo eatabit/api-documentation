@@ -287,7 +287,8 @@
                 "fulfillment",
                 "autoprint",
                 "sound",
-                "light"
+                "light",
+                "lease_start_at"
             ],
             "properties": {
                 "id": {
@@ -340,6 +341,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "When true, the Printer will make a visual alert upon downlaod of a Job\n"
+                },
+                "lease_start_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time at which the Lease started. The value is in iso8601 format.\n"
                 }
             }
         },
@@ -353,7 +359,7 @@
                 "id": {
                     "type": "string",
                     "format": "string",
-                    "description": "The ID of the Job in your system. This ID will be printed on the paper.\n",
+                    "description": "The ID of the Job in your system.\n",
                     "maxLength": 254
                 },
                 "body": {

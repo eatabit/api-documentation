@@ -287,7 +287,8 @@
                 "fulfillment",
                 "autoprint",
                 "sound",
-                "light"
+                "light",
+                "lease_start_at"
             ],
             "properties": {
                 "id": {
@@ -340,6 +341,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "When true, the Printer will make a visual alert upon downlaod of a Job\n"
+                },
+                "lease_start_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The UTC time at which the Lease started. The value is in iso8601 format.\n"
                 }
             }
         },
@@ -484,7 +490,7 @@
                 "api_version": {
                     "type": "integer",
                     "format": "int32",
-                    "default": 4,
+                    "default": 5,
                     "description": "The version of the API used to create the Job. The default is 4.\n"
                 },
                 "expire_seconds": {
